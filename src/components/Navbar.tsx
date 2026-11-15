@@ -44,7 +44,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onBookClick }) => {
               src={logo}
               alt="MW Auto Painting"
               referrerPolicy="no-referrer"
-              className="h-10 sm:h-20 w-auto object-contain"
+              className="h-16 sm:h-20 w-auto object-contain"
             />
           </a>
 
