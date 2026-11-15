@@ -1,0 +1,6 @@
+{
+  "name": "MW Auto Painting — PAKMAL ENTERPRISE",
+  "description": "Precision auto denting, spray painting, classic car restoration (Pakar Kereta Antik), and body hammering (Pakar Mengetuk Dan Mengecat Kereta) in Shah Alam, Selangor.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,0 +1,78 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Outfit", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+
+  --color-brand-navy: #0D2D58;
+  --color-brand-navy-deep: #081C38;
+  --color-brand-navy-soft: #163E73;
+  --color-brand-green: #2D6E35;
+  --color-brand-green-dark: #23572A;
+  --color-brand-green-light: #3A8A44;
+  --color-surface-mist: #F5F7FA;
+}
+
+@layer base {
+  html {
+    font-family: var(--font-sans);
+    scroll-padding-top: 84px;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+  }
+}
+
+.bg-workshop-grid {
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+.bg-light-grid {
+  background-image:
+    linear-gradient(to right, rgba(13, 45, 88, 0.035) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(13, 45, 88, 0.035) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+.clearcoat-sheen {
+  position: relative;
+  overflow: hidden;
+}
+
+.clearcoat-sheen::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-110%) skewX(-18deg);
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.22) 50%,
+    transparent 100%
+  );
+  transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+}
+
+.clearcoat-sheen:hover::after {
+  transform: translateX(110%) skewX(-18deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .clearcoat-sheen::after {
+    display: none;
+  }
+}
