@@ -3,8 +3,6 @@ import {
   ArrowRight,
   Car,
   ImagePlus,
-  MoveHorizontal,
-  SlidersHorizontal,
   Trash2,
   Upload,
   X,
@@ -15,6 +13,7 @@ import {
   BUSINESS_INFO,
   GALLERY_PROJECTS,
   SERVICES,
+  WORKSHOP_GALLERY_PROJECTS,
   type GalleryProject,
   type ServiceId,
 } from "../data/workshopData";
@@ -27,6 +26,7 @@ interface GallerySectionProps {
 type FilterOption = "All" | ServiceId;
 
 const STORAGE_KEY = "mw_auto_painting_workshop_gallery_v1";
+const GALLERY_PAGE_SIZE = 4;
 
 const FILTER_OPTIONS: { label: string; value: FilterOption }[] = [
   { label: "All Work", value: "All" },
@@ -88,8 +88,18 @@ const ProjectCard: React.FC<{
         <div className="relative aspect-[4/3] bg-[#0D2D58] overflow-hidden">
           {!imgError ? (
             <img
-              src={project.image}
-              alt={project.alt}
+              src={
+                viewMode === "before" && project.beforeImage
+                  ? project.beforeImage
+                  : project.image
+              }
+              alt={
+                viewMode === "before" && project.beforeImage
+                  ? project.beforeAlt
+                  : project.alt
+              }
+              loading="lazy"
+              decoding="async"
               referrerPolicy="no-referrer"
               onError={() => setImgError(true)}
               className="w-full h-full object-cover object-center transition-transform duration-500 ease-out group-hover:scale-[1.04]"
@@ -143,46 +153,44 @@ const ProjectCard: React.FC<{
           {/* Interactive Before / After Scope Toggle */}
           <div className="mt-4 pt-4 border-t border-slate-100">
             <div className="inline-flex items-center gap-1 p-1 rounded-lg bg-[#F5F7FA] border border-slate-200">
-              <button
-                type="button"
-                onClick={() => setViewMode("after")}
-                className={`px-3 py-1.5 rounded-md text-xs font-semibold transition-colors whitespace-nowrap shrink-0 cursor-pointer ${
-                  viewMode === "after"
-                    ? "bg-[#0D2D58] text-white shadow-sm"
-                    : "text-slate-600 hover:text-[#0D2D58]"
-                }`}
-              >
-                After Finish
-              </button>
-              <button
-                type="button"
-                onClick={() => setViewMode("before")}
-                className={`px-3 py-1.5 rounded-md text-xs font-semibold transition-colors whitespace-nowrap shrink-0 cursor-pointer ${
-                  viewMode === "before"
-                    ? "bg-[#2D6E35] text-white shadow-sm"
-                    : "text-slate-600 hover:text-[#0D2D58]"
-                }`}
-              >
-                Before Condition
-              </button>
+              {project.beforeImage && (
+                <button
+                  type="button"
+                  onClick={() => setViewMode("before")}
+                  className={`px-3 py-1.5 rounded-md text-xs font-semibold transition-colors whitespace-nowrap shrink-0 cursor-pointer ${
+                    viewMode === "before"
+                      ? "bg-[#2D6E35] text-white shadow-sm"
+                      : "text-slate-600 hover:text-[#0D2D58]"
+                  }`}
+                >
+                  Before Photo
+                </button>
+              )}
+              {project.beforeImage && (
+                <button
+                  type="button"
+                  onClick={() => setViewMode("after")}
+                  className={`px-3 py-1.5 rounded-md text-xs font-semibold transition-colors whitespace-nowrap shrink-0 cursor-pointer ${
+                    viewMode === "after"
+                      ? "bg-[#0D2D58] text-white shadow-sm"
+                      : "text-slate-600 hover:text-[#0D2D58]"
+                  }`}
+                >
+                  After Photo
+                </button>
+              )}
+              {!project.beforeImage && (
+                <span className="px-3 py-1.5 text-xs font-semibold text-slate-600">
+                  Workshop Photo
+                </span>
+              )}
             </div>
 
-            <div className="mt-3 min-h-[44px]">
-              <AnimatePresence mode="wait">
-                <motion.p
-                  key={viewMode}
-                  initial={{ opacity: 0, y: 4 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -4 }}
-                  transition={{ duration: 0.16, ease: EASE_OUT_EXPO }}
-                  className="text-sm text-slate-600 leading-relaxed"
-                >
-                  {viewMode === "after"
-                    ? project.afterNote
-                    : project.beforeNote}
-                </motion.p>
-              </AnimatePresence>
-            </div>
+            <p className="mt-3 min-h-[44px] text-sm text-slate-600 leading-relaxed">
+              {viewMode === "after" || !project.beforeImage
+                ? project.afterNote
+                : project.beforeNote}
+            </p>
           </div>
         </div>
       </div>
@@ -220,10 +228,7 @@ export const GallerySection: React.FC<GallerySectionProps> = ({
   onBookSimilar,
 }) => {
   const [activeFilter, setActiveFilter] = useState<FilterOption>("All");
-  const [splitPercent, setSplitPercent] = useState<number>(52);
-  const [isDragging, setIsDragging] = useState(false);
-  const [sliderImgError, setSliderImgError] = useState(false);
-  const compareContainerRef = useRef<HTMLDivElement>(null);
+  const [visibleCount, setVisibleCount] = useState(GALLERY_PAGE_SIZE);
 
   // User-uploaded workshop gallery state (persisted in localStorage)
   const [uploadedProjects, setUploadedProjects] = useState<GalleryProject[]>(
@@ -275,20 +280,16 @@ export const GallerySection: React.FC<GallerySectionProps> = ({
     return () => window.removeEventListener("keydown", handleEsc);
   }, []);
 
-  const allProjects = [...uploadedProjects, ...GALLERY_PROJECTS];
+  const allProjects = [
+    ...uploadedProjects,
+    ...GALLERY_PROJECTS,
+    ...WORKSHOP_GALLERY_PROJECTS,
+  ];
   const filteredProjects =
     activeFilter === "All"
       ? allProjects
       : allProjects.filter((project) => project.category === activeFilter);
-
-  const updateSplitFromPointer = (clientX: number) => {
-    const container = compareContainerRef.current;
-    if (!container) return;
-    const rect = container.getBoundingClientRect();
-    const rawPercent = ((clientX - rect.left) / rect.width) * 100;
-    const clamped = Math.min(92, Math.max(8, Math.round(rawPercent)));
-    setSplitPercent(clamped);
-  };
+  const visibleProjects = filteredProjects.slice(0, visibleCount);
 
   const handleFilesSelected = async (files: FileList | null) => {
     if (!files || files.length === 0) return;
@@ -360,6 +361,7 @@ export const GallerySection: React.FC<GallerySectionProps> = ({
     setUploadError(null);
     setUploadPanelOpen(false);
     setActiveFilter("All");
+    setVisibleCount(GALLERY_PAGE_SIZE);
   };
 
   const handleDeleteUploaded = (id: string) => {
@@ -379,11 +381,11 @@ export const GallerySection: React.FC<GallerySectionProps> = ({
               Gallery &amp; Our Work
             </p>
             <h2 className="mt-2 text-3xl sm:text-4xl font-bold tracking-tight text-[#0D2D58] text-balance">
-              Completed Restorations &amp; Workshop Gallery
+              Workshop Photos &amp; Vehicle Restorations
             </h2>
             <p className="mt-3 text-base text-slate-600 leading-relaxed">
-              Browse recent paint booth resprays and restorations, or upload
-              photos directly from your workshop to showcase your latest work.
+              Browse real workshop photos, paintwork, and classic restorations,
+              or share more photos from your workshop.
             </p>
           </div>
 
@@ -660,7 +662,10 @@ export const GallerySection: React.FC<GallerySectionProps> = ({
                   type="button"
                   role="tab"
                   aria-selected={isActive}
-                  onClick={() => setActiveFilter(option.value)}
+                  onClick={() => {
+                    setActiveFilter(option.value);
+                    setVisibleCount(GALLERY_PAGE_SIZE);
+                  }}
                   className={`px-3.5 py-2 rounded-lg text-xs font-semibold transition-colors whitespace-nowrap shrink-0 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#2D6E35] ${
                     isActive
                       ? "bg-[#0D2D58] text-white shadow-sm"
@@ -674,145 +679,11 @@ export const GallerySection: React.FC<GallerySectionProps> = ({
           </div>
 
           <p className="text-xs font-mono text-slate-500 tabular-nums">
-            Showing {filteredProjects.length}{" "}
+            Showing {Math.min(visibleCount, filteredProjects.length)} of{" "}
+            {filteredProjects.length}{" "}
             {filteredProjects.length === 1 ? "Photo" : "Photos"}
           </p>
         </div>
-
-        {/* Interactive Before / After Process Comparison Panel (Drag-Enabled) */}
-        <Reveal
-          delay={0.08}
-          className="mt-8 rounded-2xl border border-slate-200 bg-[#F5F7FA] p-6 sm:p-8"
-        >
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-            <div className="lg:col-span-5 space-y-4">
-              <div className="flex items-center gap-2 text-xs font-semibold text-[#2D6E35]">
-                <SlidersHorizontal
-                  className="w-4 h-4 shrink-0"
-                  aria-hidden="true"
-                />
-                <span>Interactive Process Showcase</span>
-              </div>
-              <h3 className="text-2xl font-bold tracking-tight text-[#0D2D58]">
-                From Panel Prep &amp; Hammering to Mirror Clearcoat
-              </h3>
-              <p className="text-sm text-slate-600 leading-relaxed">
-                Drag directly across the photo or adjust the slider below to
-                compare raw bodywork sanding and primer stage against our final
-                2K clearcoat spray booth finish.
-              </p>
-
-              <div className="pt-2 space-y-3">
-                <label
-                  htmlFor="before-after-range"
-                  className="flex items-center justify-between text-xs font-semibold text-[#0D2D58]"
-                >
-                  <span>Prep &amp; Primer Stage</span>
-                  <span className="font-mono tabular-nums text-[#2D6E35]">
-                    {splitPercent}%
-                  </span>
-                  <span>Final Paint Booth</span>
-                </label>
-                <input
-                  id="before-after-range"
-                  type="range"
-                  min={8}
-                  max={92}
-                  value={splitPercent}
-                  onChange={(e) => setSplitPercent(Number(e.target.value))}
-                  className="w-full accent-[#2D6E35] cursor-pointer"
-                />
-                <div className="flex flex-wrap items-center gap-2 pt-1">
-                  <button
-                    type="button"
-                    onClick={() => setSplitPercent(18)}
-                    className="px-3 py-1.5 rounded-lg border border-slate-300 bg-white hover:border-[#0D2D58] text-xs font-semibold text-[#0D2D58] transition-colors cursor-pointer"
-                  >
-                    Show Prep
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setSplitPercent(50)}
-                    className="px-3 py-1.5 rounded-lg border border-slate-300 bg-white hover:border-[#0D2D58] text-xs font-semibold text-[#0D2D58] transition-colors cursor-pointer"
-                  >
-                    50 / 50
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setSplitPercent(85)}
-                    className="px-3 py-1.5 rounded-lg border border-slate-300 bg-white hover:border-[#0D2D58] text-xs font-semibold text-[#0D2D58] transition-colors cursor-pointer"
-                  >
-                    Show Final Gloss
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            <div className="lg:col-span-7">
-              <div
-                ref={compareContainerRef}
-                onPointerDown={(e) => {
-                  setIsDragging(true);
-                  e.currentTarget.setPointerCapture(e.pointerId);
-                  updateSplitFromPointer(e.clientX);
-                }}
-                onPointerMove={(e) => {
-                  if (isDragging) updateSplitFromPointer(e.clientX);
-                }}
-                onPointerUp={() => setIsDragging(false)}
-                onPointerCancel={() => setIsDragging(false)}
-                className="relative aspect-[16/10] rounded-xl overflow-hidden border border-slate-300 bg-[#0D2D58] select-none touch-none cursor-ew-resize shadow-sm"
-              >
-                {!sliderImgError ? (
-                  <>
-                    <img
-                      src={BUSINESS_INFO.resprayImage}
-                      alt="Final deep navy metallic spray booth finish"
-                      referrerPolicy="no-referrer"
-                      onError={() => setSliderImgError(true)}
-                      draggable={false}
-                      className="absolute inset-0 w-full h-full object-cover"
-                    />
-                    <div
-                      className="absolute inset-0 overflow-hidden"
-                      style={{
-                        clipPath: `inset(0 ${100 - splitPercent}% 0 0)`,
-                      }}
-                    >
-                      <img
-                        src={BUSINESS_INFO.prepImage}
-                        alt="Metal repair and primer preparation stage"
-                        referrerPolicy="no-referrer"
-                        onError={() => setSliderImgError(true)}
-                        draggable={false}
-                        className="absolute inset-0 w-full h-full object-cover"
-                      />
-                    </div>
-                    <div
-                      aria-hidden="true"
-                      className="absolute inset-y-0 w-0.5 bg-white shadow-lg pointer-events-none"
-                      style={{ left: `${splitPercent}%` }}
-                    >
-                      <div className="absolute top-1/2 -translate-x-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-[#0D2D58] border-2 border-white text-white flex items-center justify-center shadow-md">
-                        <MoveHorizontal className="w-4 h-4" />
-                      </div>
-                    </div>
-                    <div className="absolute bottom-3 left-3 px-2.5 py-1 rounded bg-[#081C38]/85 backdrop-blur-sm text-white text-xs font-semibold pointer-events-none">
-                      Before: Bodywork &amp; Primer
-                    </div>
-                    <div className="absolute bottom-3 right-3 px-2.5 py-1 rounded bg-[#2D6E35]/95 backdrop-blur-sm text-white text-xs font-semibold pointer-events-none">
-                      After: Mirror Clearcoat
-                    </div>
-                  </>
-                ) : (
-                  <div className="w-full h-full flex items-center justify-center text-white text-sm">
-                    MW Auto Painting · Before &amp; After Workshop Process
-                  </div>
-                )}
-              </div>
-            </div>
-          </div>
-        </Reveal>
 
         {/* Animated Filtered Project Cards Grid */}
         <motion.div
@@ -820,7 +691,7 @@ export const GallerySection: React.FC<GallerySectionProps> = ({
           className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-6"
         >
           <AnimatePresence mode="popLayout">
-            {filteredProjects.map((project) => (
+            {visibleProjects.map((project) => (
               <ProjectCard
                 key={project.id}
                 project={project}
@@ -833,6 +704,22 @@ export const GallerySection: React.FC<GallerySectionProps> = ({
             ))}
           </AnimatePresence>
         </motion.div>
+
+        {visibleCount < filteredProjects.length && (
+          <div className="mt-8 flex justify-center">
+            <button
+              type="button"
+              onClick={() =>
+                setVisibleCount((count) =>
+                  Math.min(count + GALLERY_PAGE_SIZE, filteredProjects.length),
+                )
+              }
+              className="px-6 py-3 rounded-xl bg-[#0D2D58] hover:bg-[#163E73] text-white text-sm font-semibold transition-colors cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#2D6E35]"
+            >
+              Show More Photos
+            </button>
+          </div>
+        )}
       </div>
 
       {/* Full-Size Workshop Photo Lightbox Modal */}

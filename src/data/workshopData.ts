@@ -1,8 +1,4 @@
-import heroBoothImg from "../assets/images/hero_auto_paint_booth_1794744172564.jpg";
 import sedanResprayImg from "../assets/images/work_sedan_respray_1794744171450.jpg";
-import classicRestorationImg from "../assets/images/work_classic_restoration_1794744172616.jpg";
-import dentPanelRepairImg from "../assets/images/work_dent_panel_repair_1794744172575.jpg";
-import ceramicClearcoatImg from "../assets/images/work_ceramic_clearcoat_1794744172476.jpg";
 
 export type ServiceId =
   | "Auto Denting & Painting"
@@ -32,8 +28,74 @@ export interface GalleryProject {
   afterNote: string;
   image: string;
   alt: string;
+  beforeImage?: string;
+  beforeAlt?: string;
   isUserUploaded?: boolean;
 }
+
+const workshopImages = import.meta.glob<string>(
+  [
+    "../assets/mwautoimages/*.webp",
+    "!../assets/mwautoimages/auto-painting-service-promotion-graphic-01.webp",
+  ],
+  { eager: true, import: "default", query: "?url" },
+);
+
+const getWorkshopImage = (fileName: string) => {
+  const image = workshopImages[`../assets/mwautoimages/${fileName}`];
+  if (!image) {
+    throw new Error(`Workshop image not found: ${fileName}`);
+  }
+  return image;
+};
+
+const getWorkshopImageTitle = (fileName: string) =>
+  fileName
+    .replace(/\.webp$/i, "")
+    .split("-")
+    .map((word) =>
+      word.match(/^\d+$/) ? word : word[0].toUpperCase() + word.slice(1),
+    )
+    .join(" ");
+
+export const WORKSHOP_GALLERY_PROJECTS: GalleryProject[] = Object.entries(
+  workshopImages,
+).map(([path, image]) => {
+  const fileName = path.split("/").pop() ?? "workshop-photo.webp";
+  const title = getWorkshopImageTitle(fileName);
+  const isClassicRestoration = /classic|restoration|antique/i.test(fileName);
+  const isPanelRepair = /repair|panel|bodywork|preparation|primer/i.test(
+    fileName,
+  );
+  const isPromotion = /promotion-graphic/i.test(fileName);
+
+  return {
+    id: `workshop-${fileName.replace(/\.webp$/i, "")}`,
+    title,
+    vehicle: isPromotion
+      ? "Workshop Services · Shah Alam"
+      : isClassicRestoration
+        ? "Classic Vehicle · Shah Alam"
+        : "Customer Vehicle · Shah Alam",
+    category: isClassicRestoration
+      ? "Pakar Kereta Antik"
+      : isPanelRepair
+        ? "Pakar Mengetuk Dan Mengecat Kereta"
+        : "Auto Denting & Painting",
+    finishSpec: "MW Auto Painting · Workshop Photo",
+    beforeNote: `Actual workshop photo of ${title.toLowerCase()}.`,
+    afterNote: `Shared from the MW Auto Painting workshop in Shah Alam.`,
+    image,
+    alt: `${title} at the MW Auto Painting workshop`,
+  };
+});
+
+const workshopExteriorImg = getWorkshopImage("workshop-yard-overview-01.webp");
+const classicCarImg = getWorkshopImage(
+  "green-classic-car-restoration-booth-01.webp",
+);
+const panelRepairImg = getWorkshopImage("black-car-workshop-repair-01.webp");
+const freshResprayImg = getWorkshopImage("burgundy-sedan-spray-booth-02.webp");
 
 export const BUSINESS_INFO = {
   brandName: "MW Auto Painting",
@@ -46,12 +108,11 @@ export const BUSINESS_INFO = {
   tiktokHandle: "@mw auto painting",
   tiktokUrl: "https://www.tiktok.com/search?q=mw%20auto%20painting",
   mapsEmbedUrl:
-    "https://maps.google.com/maps?q=Lot%202793%2C%20Jalan%20Klinik%2C%20Kg%20Bukit%20Naga%2C%2040460%20Shah%20Alam%2C%20Selangor&t=&z=15&ie=UTF8&iwloc=&output=embed",
+    "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3984.3409140638237!2d101.5065277771822!3d3.0026052891695048!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31cdad6c1e28d281%3A0xa59f2cf1c9423de!2sMW%20AUTO%20PAINTING!5e0!3m2!1sen!2s!4v1794975842720!5m2!1sen!2s",
   mapsDirectUrl:
     "https://www.google.com/maps/search/?api=1&query=Lot+2793+Jalan+Klinik+Kg+Bukit+Naga+40460+Shah+Alam+Selangor",
-  heroImage: heroBoothImg,
-  prepImage: dentPanelRepairImg,
-  resprayImage: sedanResprayImg,
+  heroImage: workshopExteriorImg,
+  prepImage: panelRepairImg,
 };
 
 export const SERVICES: ServiceItem[] = [
@@ -68,9 +129,9 @@ export const SERVICES: ServiceItem[] = [
       "Bumper, fender, door & full-body colour change packages",
     ],
     turnaround: "3–7 Working Days",
-    image: sedanResprayImg,
+    image: freshResprayImg,
     imageAlt:
-      "Freshly painted deep navy sedan inside the MW Auto Painting spray booth",
+      "Burgundy sedan being refinished inside the MW Auto Painting spray booth",
     featured: true,
   },
   {
@@ -86,9 +147,9 @@ export const SERVICES: ServiceItem[] = [
       "Show-grade deep clearcoat finishing & detailing",
     ],
     turnaround: "Custom Schedule",
-    image: classicRestorationImg,
+    image: classicCarImg,
     imageAlt:
-      "Restored classic vintage coupe finished in glossy heritage green",
+      "Green classic car undergoing restoration in the MW Auto Painting spray booth",
   },
   {
     id: "Pakar Mengetuk Dan Mengecat Kereta",
@@ -103,8 +164,8 @@ export const SERVICES: ServiceItem[] = [
       "Smooth feather-edged primer & durable OEM-grade topcoat",
     ],
     turnaround: "2–5 Working Days",
-    image: dentPanelRepairImg,
-    imageAlt: "Technician shaping and block-sanding a repaired fender panel",
+    image: panelRepairImg,
+    imageAlt: "Car undergoing bodywork preparation at the MW Auto Painting workshop",
   },
 ];
 
@@ -124,41 +185,13 @@ export const GALLERY_PROJECTS: GalleryProject[] = [
   },
   {
     id: "classic-coupe",
-    title: "Heritage Coupe Bare-Metal Restoration",
-    vehicle: "Classic European Coupe · 1974",
+    title: "Green Classic Car Restoration",
+    vehicle: "Classic Vehicle · Shah Alam",
     category: "Pakar Kereta Antik",
-    finishSpec: "British Racing / Forest Green · Chromework Preserved",
-    beforeNote:
-      "Aged lacquer cracking, lower sill rust pockets, and uneven door gaps.",
-    afterNote:
-      "Rust-treated steel, re-aligned trim, and deep heritage green gloss finish.",
-    image: classicRestorationImg,
-    alt: "Restored classic 1970s vintage coupe finished in glossy deep green paint",
-  },
-  {
-    id: "fender-beating",
-    title: "Front Fender Hammering & Primer Prep",
-    vehicle: "Modern Touring Sedan · 2021",
-    category: "Pakar Mengetuk Dan Mengecat Kereta",
-    finishSpec: "Precision Metal Straightening · 2K Epoxy Primer",
-    beforeNote:
-      "Deep side-impact crease along wheel arch lip and distorted body line.",
-    afterNote:
-      "Hammered back to factory contour and block-sanded smooth for paint.",
-    image: dentPanelRepairImg,
-    alt: "Automotive body specialist block-sanding a repaired car fender in primer",
-  },
-  {
-    id: "clearcoat-detail",
-    title: "Mirror Clearcoat & Quarter Panel Blend",
-    vehicle: "Sport Hatchback · 2022",
-    category: "Auto Denting & Painting",
-    finishSpec: "Zero Orange-Peel Refinish · Inspection Lit",
-    beforeNote:
-      "Deep key scratch and clearcoat peel along driver side quarter panel.",
-    afterNote:
-      "Seamless colour blend and glass-smooth clearcoat inspected under linear LED.",
-    image: ceramicClearcoatImg,
-    alt: "Close-up reflection on freshly painted dark navy car quarter panel and mirror",
+    finishSpec: "MW Auto Painting · Workshop Photo",
+    beforeNote: "Before photo not yet provided.",
+    afterNote: "Green classic car photographed inside the workshop spray booth.",
+    image: classicCarImg,
+    alt: "Green classic car undergoing restoration in the MW Auto Painting spray booth",
   },
 ];

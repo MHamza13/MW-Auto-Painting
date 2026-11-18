@@ -71,7 +71,7 @@ export const Hero: React.FC<HeroProps> = ({ onBookNow }) => {
         {!imageFailed ? (
           <motion.img
             src={BUSINESS_INFO.heroImage}
-            alt="MW Auto Painting spray booth and automotive restoration workshop in Shah Alam"
+            alt="MW Auto Painting workshop yard with customer vehicles in Shah Alam"
             referrerPolicy="no-referrer"
             onError={() => setImageFailed(true)}
             initial={{ scale: 1.06, opacity: 0.35 }}

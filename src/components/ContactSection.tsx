@@ -148,7 +148,8 @@ export const ContactSection: React.FC = () => {
                 title="MW Auto Painting Workshop Location — Lot 2793, Jalan Klinik, Kg Bukit Naga, Shah Alam"
                 src={BUSINESS_INFO.mapsEmbedUrl}
                 loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
+                allowFullScreen
+                referrerPolicy="strict-origin-when-cross-origin"
                 className="w-full h-full min-h-[290px] border-0"
               />
             </div>

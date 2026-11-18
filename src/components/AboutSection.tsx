@@ -145,7 +145,7 @@ export const AboutSection: React.FC = () => {
               {!imageFailed ? (
                 <img
                   src={BUSINESS_INFO.prepImage}
-                  alt="Technician preparing and smoothing a repaired car fender at MW Auto Painting"
+                  alt="Customer vehicle undergoing bodywork at the MW Auto Painting workshop"
                   referrerPolicy="no-referrer"
                   onError={() => setImageFailed(true)}
                   className="w-full h-full object-cover object-center lg:h-full transition-transform duration-700 ease-out group-hover:scale-[1.03]"
