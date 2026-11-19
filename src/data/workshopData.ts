@@ -94,7 +94,7 @@ const workshopExteriorImg = getWorkshopImage("workshop-yard-overview-01.webp");
 const classicCarImg = getWorkshopImage(
   "green-classic-car-restoration-booth-01.webp",
 );
-const panelRepairImg = getWorkshopImage("black-car-workshop-repair-01.webp");
+const panelRepairImg = getWorkshopImage("car-repair.webp");
 const freshResprayImg = getWorkshopImage("burgundy-sedan-spray-booth-02.webp");
 
 export const BUSINESS_INFO = {
@@ -165,7 +165,8 @@ export const SERVICES: ServiceItem[] = [
     ],
     turnaround: "2–5 Working Days",
     image: panelRepairImg,
-    imageAlt: "Car undergoing bodywork preparation at the MW Auto Painting workshop",
+    imageAlt:
+      "Car undergoing bodywork preparation at the MW Auto Painting workshop",
   },
 ];
 
@@ -190,7 +191,8 @@ export const GALLERY_PROJECTS: GalleryProject[] = [
     category: "Pakar Kereta Antik",
     finishSpec: "MW Auto Painting · Workshop Photo",
     beforeNote: "Before photo not yet provided.",
-    afterNote: "Green classic car photographed inside the workshop spray booth.",
+    afterNote:
+      "Green classic car photographed inside the workshop spray booth.",
     image: classicCarImg,
     alt: "Green classic car undergoing restoration in the MW Auto Painting spray booth",
   },

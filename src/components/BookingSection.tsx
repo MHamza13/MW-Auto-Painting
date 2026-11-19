@@ -50,7 +50,7 @@ export const BookingSection: React.FC<BookingSectionProps> = ({
 
   const formattedMessage = useMemo(() => {
     const lines = [
-      "*BOOKING INQUIRY — MW AUTO PAINTING (PAKMAL ENTERPRISE)*",
+      "*BOOKING INQUIRY — MW AUTO PAINTING*",
       "",
       `*Customer Name:* ${formData.customerName.trim() || "-"}`,
       `*Contact Number:* ${formData.contactNumber.trim() || "-"}`,
@@ -144,28 +144,28 @@ export const BookingSection: React.FC<BookingSectionProps> = ({
   };
 
   const inputClass = (hasError?: string) =>
-    `w-full rounded-lg border px-3.5 py-2.5 text-sm text-[#0D2D58] bg-white placeholder:text-slate-400 transition-colors focus:outline-none focus:ring-2 ${
+    `w-full rounded-lg border px-3.5 py-2.5 text-sm text-slate-100 bg-[#1A1A1A] placeholder:text-slate-400 transition-colors focus:outline-none focus:ring-2 ${
       hasError
         ? "border-red-500 focus:ring-red-200"
-        : "border-slate-300 focus:border-[#2D6E35] focus:ring-[#2D6E35]/20"
+        : "border-white/20 focus:border-[#D90F1D] focus:ring-[#D90F1D]/20"
     }`;
 
   return (
     <section
       id="booking"
-      className="py-16 sm:py-24 bg-[#F5F7FA] bg-light-grid border-b border-slate-200"
+      className="py-16 sm:py-24 bg-[#202020] bg-light-grid border-b border-white/10"
     >
       <div className="mx-auto px-4 md:px-24">
         <Reveal className="max-w-2xl">
-          <p className="text-xs sm:text-sm font-semibold text-[#2D6E35] tracking-wide">
+          <p className="text-xs sm:text-sm font-semibold text-[#D90F1D] tracking-wide">
             Online Service Selection &amp; Booking
           </p>
-          <h2 className="mt-2 text-3xl sm:text-4xl font-bold tracking-tight text-[#0D2D58] text-balance">
+          <h2 className="mt-2 text-3xl sm:text-4xl font-bold tracking-tight text-slate-100 text-balance">
             Book Your Vehicle Inspection via WhatsApp
           </h2>
-          <p className="mt-3 text-base text-slate-600 leading-relaxed">
+          <p className="mt-3 text-base text-slate-300 leading-relaxed">
             Fill in your vehicle details below. Clicking{" "}
-            <strong className="text-[#0D2D58]">Send via WhatsApp</strong>{" "}
+            <strong className="text-slate-100">Send via WhatsApp</strong>{" "}
             formats your inquiry cleanly and opens WhatsApp so you can review
             and send it directly to our workshop team.
           </p>
@@ -177,13 +177,13 @@ export const BookingSection: React.FC<BookingSectionProps> = ({
             <form
               onSubmit={handleSubmit}
               noValidate
-              className="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 sm:p-8 space-y-5"
+              className="bg-[#1A1A1A] rounded-2xl border border-white/10 shadow-sm p-6 sm:p-8 space-y-5"
             >
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 <div>
                   <label
                     htmlFor="customerName"
-                    className="block text-xs font-semibold text-[#0D2D58] mb-1.5"
+                    className="block text-xs font-semibold text-slate-100 mb-1.5"
                   >
                     Customer Name *
                   </label>
@@ -212,7 +212,7 @@ export const BookingSection: React.FC<BookingSectionProps> = ({
                 <div>
                   <label
                     htmlFor="contactNumber"
-                    className="block text-xs font-semibold text-[#0D2D58] mb-1.5"
+                    className="block text-xs font-semibold text-slate-100 mb-1.5"
                   >
                     Contact Number *
                   </label>
@@ -243,7 +243,7 @@ export const BookingSection: React.FC<BookingSectionProps> = ({
                 <div>
                   <label
                     htmlFor="carBrand"
-                    className="block text-xs font-semibold text-[#0D2D58] mb-1.5"
+                    className="block text-xs font-semibold text-slate-100 mb-1.5"
                   >
                     Car Brand *
                   </label>
@@ -270,7 +270,7 @@ export const BookingSection: React.FC<BookingSectionProps> = ({
                 <div>
                   <label
                     htmlFor="carModel"
-                    className="block text-xs font-semibold text-[#0D2D58] mb-1.5"
+                    className="block text-xs font-semibold text-slate-100 mb-1.5"
                   >
                     Car Model *
                   </label>
@@ -297,7 +297,7 @@ export const BookingSection: React.FC<BookingSectionProps> = ({
                 <div>
                   <label
                     htmlFor="carYear"
-                    className="block text-xs font-semibold text-[#0D2D58] mb-1.5"
+                    className="block text-xs font-semibold text-slate-100 mb-1.5"
                   >
                     Car Year *
                   </label>
@@ -327,7 +327,7 @@ export const BookingSection: React.FC<BookingSectionProps> = ({
               <div>
                 <label
                   htmlFor="requiredService"
-                  className="block text-xs font-semibold text-[#0D2D58] mb-1.5"
+                  className="block text-xs font-semibold text-slate-100 mb-1.5"
                 >
                   Required Service *
                 </label>
@@ -351,7 +351,7 @@ export const BookingSection: React.FC<BookingSectionProps> = ({
               <div>
                 <label
                   htmlFor="problemDetails"
-                  className="block text-xs font-semibold text-[#0D2D58] mb-1.5"
+                  className="block text-xs font-semibold text-slate-100 mb-1.5"
                 >
                   Car Problem / Service Details *
                 </label>
@@ -380,7 +380,7 @@ export const BookingSection: React.FC<BookingSectionProps> = ({
               <div>
                 <label
                   htmlFor="additionalMessage"
-                  className="block text-xs font-semibold text-[#0D2D58] mb-1.5"
+                  className="block text-xs font-semibold text-slate-100 mb-1.5"
                 >
                   Additional Message (Optional)
                 </label>
@@ -401,7 +401,7 @@ export const BookingSection: React.FC<BookingSectionProps> = ({
                   type="submit"
                   whileHover={{ scale: 1.01 }}
                   whileTap={{ scale: 0.99 }}
-                  className="clearcoat-sheen w-full inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-lg bg-[#2D6E35] hover:bg-[#23572A] text-white text-sm sm:text-base font-semibold transition-colors cursor-pointer shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#2D6E35]"
+                  className="clearcoat-sheen w-full inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-lg bg-[#D90F1D] hover:bg-[#B30B17] text-white text-sm sm:text-base font-semibold transition-colors cursor-pointer shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#D90F1D]"
                 >
                   <MessageCircle
                     className="w-5 h-5 shrink-0"
@@ -410,7 +410,7 @@ export const BookingSection: React.FC<BookingSectionProps> = ({
                   <span>Send via WhatsApp</span>
                 </motion.button>
 
-                <p className="text-xs text-slate-500 leading-relaxed">
+                <p className="text-xs text-slate-400 leading-relaxed">
                   Note: Submitting this form opens WhatsApp to discuss your
                   booking. Final confirmation depends on shop availability and
                   discussion with our support team.
@@ -425,9 +425,9 @@ export const BookingSection: React.FC<BookingSectionProps> = ({
                     exit={{ opacity: 0, y: -6 }}
                     transition={{ duration: 0.25, ease: EASE_OUT_EXPO }}
                     role="status"
-                    className="rounded-xl border border-[#2D6E35]/35 bg-[#2D6E35]/5 p-4 space-y-3"
+                    className="rounded-xl border border-[#D90F1D]/35 bg-[#D90F1D]/5 p-4 space-y-3"
                   >
-                    <div className="flex items-start gap-2.5 text-sm font-semibold text-[#23572A]">
+                    <div className="flex items-start gap-2.5 text-sm font-semibold text-[#B30B17]">
                       <CheckCircle2
                         className="w-5 h-5 shrink-0 mt-0.5"
                         aria-hidden="true"
@@ -442,7 +442,7 @@ export const BookingSection: React.FC<BookingSectionProps> = ({
                         href={preparedWhatsAppUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-[#2D6E35] hover:bg-[#23572A] text-white text-xs font-semibold transition-colors whitespace-nowrap shrink-0"
+                        className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-[#D90F1D] hover:bg-[#B30B17] text-white text-xs font-semibold transition-colors whitespace-nowrap shrink-0"
                       >
                         <span>Open WhatsApp Chat</span>
                         <ExternalLink
@@ -453,7 +453,7 @@ export const BookingSection: React.FC<BookingSectionProps> = ({
                       <button
                         type="button"
                         onClick={handleCopyMessage}
-                        className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg border border-slate-300 bg-white hover:border-[#0D2D58] text-xs font-semibold text-[#0D2D58] cursor-pointer"
+                        className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg border border-white/20 bg-[#1A1A1A] hover:border-[#D90F1D] text-xs font-semibold text-slate-100 cursor-pointer"
                       >
                         <Copy
                           className="w-3.5 h-3.5 shrink-0"
@@ -470,10 +470,10 @@ export const BookingSection: React.FC<BookingSectionProps> = ({
 
           {/* Live WhatsApp Message Preview Column (Number Removed) */}
           <Reveal delay={0.12} className="lg:col-span-5">
-            <aside className="bg-[#0D2D58] text-white rounded-2xl overflow-hidden border border-[#0D2D58] shadow-lg shadow-[#0D2D58]/10">
-              <div className="bg-[#081C38] px-6 py-4 border-b border-white/10 flex items-center justify-between gap-4">
+            <aside className="bg-[#191919] text-white rounded-2xl overflow-hidden border border-[#191919] shadow-lg shadow-[#191919]/10">
+              <div className="bg-[#0A0A0A] px-6 py-4 border-b border-white/10 flex items-center justify-between gap-4">
                 <div>
-                  <p className="text-xs font-medium text-[#5AC266]">
+                  <p className="text-xs font-medium text-[#FF4B55]">
                     Live WhatsApp Preview
                   </p>
                   <h3 className="text-base font-bold text-white mt-0.5">
@@ -491,7 +491,7 @@ export const BookingSection: React.FC<BookingSectionProps> = ({
               </div>
 
               <div className="p-6 sm:p-7 space-y-5">
-                <pre className="whitespace-pre-wrap break-words font-sans text-sm leading-relaxed text-slate-100 bg-[#081C38] rounded-xl p-4 border border-white/10">
+                <pre className="whitespace-pre-wrap break-words font-sans text-sm leading-relaxed text-slate-100 bg-[#0A0A0A] rounded-xl p-4 border border-white/10">
                   {formattedMessage}
                 </pre>
 

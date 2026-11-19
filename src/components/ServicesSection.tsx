@@ -26,24 +26,24 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
   return (
     <section
       id="services"
-      className="py-16 sm:py-24 bg-[#F5F7FA] border-b border-slate-200"
+      className="py-16 sm:py-24 bg-[#202020] border-b border-white/10"
     >
       <div className="mx-auto px-4 md:px-24">
         <Reveal className="flex flex-col md:flex-row md:items-end justify-between gap-6">
           <div className="max-w-2xl">
-            <p className="text-xs sm:text-sm font-semibold text-[#2D6E35] tracking-wide">
+            <p className="text-xs sm:text-sm font-semibold text-[#D90F1D] tracking-wide">
               Our Services
             </p>
-            <h2 className="mt-2 text-3xl sm:text-4xl font-bold tracking-tight text-[#0D2D58] text-balance">
+            <h2 className="mt-2 text-3xl sm:text-4xl font-bold tracking-tight text-slate-100 text-balance">
               Specialized Automotive Bodywork &amp; Refinishing
             </h2>
-            <p className="mt-3 text-base text-slate-600 leading-relaxed">
+            <p className="mt-3 text-base text-slate-300 leading-relaxed">
               Every service is engineered for clean panel alignment and durable
               2K clearcoat gloss. Choose a service card below to pre-fill your
               booking inquiry.
             </p>
           </div>
-          <p className="text-xs font-mono text-slate-500 whitespace-nowrap">
+          <p className="text-xs font-mono text-slate-400 whitespace-nowrap">
             3 Core Workshop Specialties
           </p>
         </Reveal>
@@ -75,11 +75,11 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
                       }
                     : undefined
                 }
-                className="group relative flex flex-col justify-between rounded-2xl bg-white border border-slate-200 hover:border-[#0D2D58]/35 shadow-sm hover:shadow-xl hover:shadow-[#0D2D58]/8 transition-all duration-300 overflow-hidden"
+                className="group relative flex flex-col justify-between rounded-2xl bg-[#1A1A1A] border border-white/10 hover:border-[#D90F1D]/35 shadow-sm hover:shadow-xl hover:shadow-[#191919]/8 transition-all duration-300 overflow-hidden"
               >
                 <div>
                   {/* Service Visual Header */}
-                  <div className="relative aspect-[16/10] bg-[#081C38] overflow-hidden">
+                  <div className="relative aspect-[16/10] bg-[#0A0A0A] overflow-hidden">
                     {!hasImgError ? (
                       <img
                         src={service.image}
@@ -94,9 +94,9 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
                         className="w-full h-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.05]"
                       />
                     ) : (
-                      <div className="w-full h-full flex flex-col items-center justify-center p-6 text-white bg-gradient-to-br from-[#0D2D58] to-[#23572A]">
+                      <div className="w-full h-full flex flex-col items-center justify-center p-6 text-white bg-gradient-to-br from-[#191919] to-[#B30B17]">
                         <Wrench
-                          className="w-8 h-8 mb-2 text-[#5AC266]"
+                          className="w-8 h-8 mb-2 text-[#FF4B55]"
                           aria-hidden="true"
                         />
                         <p className="text-sm font-semibold">{service.title}</p>
@@ -106,12 +106,12 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
                     {/* Measured Gradient Scrim */}
                     <div
                       aria-hidden="true"
-                      className="absolute inset-0 bg-gradient-to-t from-[#081C38]/95 via-[#081C38]/35 to-transparent"
+                      className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A]/95 via-[#0A0A0A]/35 to-transparent"
                     />
 
                     {/* Bottom Card Title Overlay */}
                     <div className="absolute inset-x-0 bottom-0 p-5">
-                      <p className="text-xs font-mono font-semibold text-[#5AC266] tabular-nums">
+                      <p className="text-xs font-mono font-semibold text-[#FF4B55] tabular-nums">
                         {service.number}. {service.subtitle}
                       </p>
                       <h3 className="mt-1 text-xl sm:text-2xl font-bold tracking-tight text-white">
@@ -122,22 +122,22 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
 
                   {/* Card Body & Highlights */}
                   <div className="p-6 space-y-5">
-                    <p className="text-sm text-slate-600 leading-relaxed">
+                    <p className="text-sm text-slate-300 leading-relaxed">
                       {service.summary}
                     </p>
 
-                    <div className="pt-4 border-t border-slate-100 space-y-2.5">
-                      <p className="text-xs font-semibold text-[#0D2D58]">
+                    <div className="pt-4 border-t border-white/10 space-y-2.5">
+                      <p className="text-xs font-semibold text-slate-100">
                         What Is Included
                       </p>
                       <ul className="space-y-2">
                         {service.highlights.map((item) => (
                           <li
                             key={item}
-                            className="flex items-start gap-2.5 text-sm text-slate-700"
+                            className="flex items-start gap-2.5 text-sm text-slate-300"
                           >
                             <Check
-                              className="w-4 h-4 mt-0.5 text-[#2D6E35] shrink-0"
+                              className="w-4 h-4 mt-0.5 text-[#D90F1D] shrink-0"
                               aria-hidden="true"
                             />
                             <span>{item}</span>
@@ -150,15 +150,15 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
 
                 {/* Card Action Footer */}
                 <div className="px-6 pb-6 pt-3 mt-auto space-y-4">
-                  <div className="flex items-center justify-between text-xs text-slate-500 pt-3 border-t border-slate-100">
+                  <div className="flex items-center justify-between text-xs text-slate-400 pt-3 border-t border-white/10">
                     <span className="inline-flex items-center gap-1.5 font-medium">
                       <Clock
-                        className="w-3.5 h-3.5 text-[#2D6E35]"
+                        className="w-3.5 h-3.5 text-[#D90F1D]"
                         aria-hidden="true"
                       />
                       <span>Est. Turnaround</span>
                     </span>
-                    <span className="font-mono font-semibold text-[#0D2D58] tabular-nums">
+                    <span className="font-mono font-semibold text-slate-100 tabular-nums">
                       {service.turnaround}
                     </span>
                   </div>
@@ -167,7 +167,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
                     type="button"
                     whileTap={{ scale: 0.98 }}
                     onClick={() => onSelectService(service.id)}
-                    className="clearcoat-sheen w-full inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-[#0D2D58] group-hover:bg-[#2D6E35] text-white text-sm font-semibold transition-colors whitespace-nowrap shrink-0 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#2D6E35]"
+                    className="clearcoat-sheen w-full inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-[#191919] group-hover:bg-[#D90F1D] text-white text-sm font-semibold transition-colors whitespace-nowrap shrink-0 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#D90F1D]"
                   >
                     <span>Book This Service</span>
                     <ArrowRight

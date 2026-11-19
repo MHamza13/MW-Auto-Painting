@@ -19,7 +19,7 @@ export const FloatingWhatsApp: React.FC = () => {
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Chat with MW Auto Painting on WhatsApp"
-      className="fixed bottom-6 right-6 z-[9999] inline-flex items-center gap-2.5 h-12 px-5 rounded-full bg-[#2D6E35] hover:bg-[#23572A] text-white text-sm font-semibold shadow-2xl shadow-black/30 ring-2 ring-white/85 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#2D6E35]"
+      className="fixed bottom-6 right-6 z-[9999] inline-flex items-center gap-2.5 h-12 px-5 rounded-full bg-[#D90F1D] hover:bg-[#B30B17] text-white text-sm font-semibold shadow-2xl shadow-black/30 ring-2 ring-white/85 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#D90F1D]"
       style={{
         /* Mobile ke bottom home bar / notch se bachne ke liye safe area padding */
         bottom: "max(1.5rem, env(safe-area-inset-bottom))",

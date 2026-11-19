@@ -61,11 +61,11 @@ export const Hero: React.FC<HeroProps> = ({ onBookNow }) => {
   const [selectedSwatch, setSelectedSwatch] = useState(PAINT_SWATCHES[0]);
 
   const directWhatsAppUrl = `https://wa.me/${BUSINESS_INFO.whatsappNumber}?text=${encodeURIComponent(
-    "Hello MW Auto Painting (PAKMAL ENTERPRISE), I would like to inquire about auto painting / denting services.",
+    "Hello MW Auto Painting, I would like to inquire about auto painting / denting services.",
   )}`;
 
   return (
-    <section id="home" className="bg-[#081C38] text-white overflow-hidden">
+    <section id="home" className="bg-[#0A0A0A] text-white overflow-hidden">
       <div className="relative">
         {/* Background Workshop Photography with Subtle Cinematic Settling Zoom */}
         {!imageFailed ? (
@@ -80,27 +80,27 @@ export const Hero: React.FC<HeroProps> = ({ onBookNow }) => {
             className="absolute inset-0 w-full h-full object-cover object-center"
           />
         ) : (
-          <div className="absolute inset-0 bg-gradient-to-br from-[#081C38] via-[#0D2D58] to-[#133822]" />
+          <div className="absolute inset-0 bg-gradient-to-br from-[#0A0A0A] via-[#191919] to-[#8F0D15]" />
         )}
 
-        {/* Measured Navy & Forest Architectural Gradient Scrim + Subtle Blueprint Grid */}
+        {/* Charcoal and red architectural scrim with a subtle workshop grid */}
         <div
           aria-hidden="true"
-          className="absolute inset-0 bg-gradient-to-r from-[#081C38] via-[#081C38]/88 to-[#081C38]/50"
+          className="absolute inset-0 bg-gradient-to-r from-[#0A0A0A] via-[#0A0A0A]/88 to-[#0A0A0A]/50"
         />
         <div
           aria-hidden="true"
-          className="absolute inset-0 bg-gradient-to-t from-[#081C38] via-transparent to-[#081C38]/40"
+          className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-transparent to-[#0A0A0A]/40"
         />
         <div
           aria-hidden="true"
           className="absolute inset-0 bg-workshop-grid opacity-70"
         />
 
-        {/* Subtle Ambient Emerald Spotlight Glow behind Hero Content */}
+        {/* Subtle ambient red spotlight glow behind hero content */}
         <div
           aria-hidden="true"
-          className="absolute -bottom-24 right-1/4 w-[420px] h-[420px] rounded-full bg-[#2D6E35]/20 blur-[110px] pointer-events-none"
+          className="absolute -bottom-24 right-1/4 w-[420px] h-[420px] rounded-full bg-[#D90F1D]/20 blur-[110px] pointer-events-none"
         />
 
         <div className="relative mx-auto px-4 md:px-24 py-16 sm:py-24 lg:py-28">
@@ -113,7 +113,7 @@ export const Hero: React.FC<HeroProps> = ({ onBookNow }) => {
                 className="text-xs sm:text-sm font-medium tracking-wide text-slate-300 mb-4 flex flex-wrap items-center gap-x-2 gap-y-1"
               >
                 <span className="text-white font-semibold">
-                  {BUSINESS_INFO.companyName}
+                  {BUSINESS_INFO.brandName}
                 </span>
                 <span aria-hidden="true">·</span>
                 <span className="font-mono tabular-nums">
@@ -173,7 +173,7 @@ export const Hero: React.FC<HeroProps> = ({ onBookNow }) => {
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                   onClick={onBookNow}
-                  className="clearcoat-sheen inline-flex items-center gap-2.5 px-6 py-3.5 rounded-lg bg-[#2D6E35] hover:bg-[#3A8A44] text-white text-sm sm:text-base font-semibold transition-colors whitespace-nowrap shrink-0 cursor-pointer shadow-lg shadow-[#2D6E35]/25 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-[#081C38] focus-visible:ring-[#3A8A44]"
+                  className="clearcoat-sheen inline-flex items-center gap-2.5 px-6 py-3.5 rounded-lg bg-[#D90F1D] hover:bg-[#F32936] text-white text-sm sm:text-base font-semibold transition-colors whitespace-nowrap shrink-0 cursor-pointer shadow-lg shadow-[#D90F1D]/25 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0A0A0A] focus-visible:ring-[#F32936]"
                 >
                   <span>Book Service Now</span>
                   <ArrowRight className="w-4 h-4 shrink-0" aria-hidden="true" />
@@ -185,7 +185,7 @@ export const Hero: React.FC<HeroProps> = ({ onBookNow }) => {
                   href={directWhatsAppUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-lg border border-white/25 bg-white/10 hover:bg-white/15 backdrop-blur-sm text-white text-sm sm:text-base font-semibold transition-colors whitespace-nowrap shrink-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-[#081C38] focus-visible:ring-white"
+                  className="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-lg border border-white/25 bg-white/10 hover:bg-white/15 backdrop-blur-sm text-white text-sm sm:text-base font-semibold transition-colors whitespace-nowrap shrink-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0A0A0A] focus-visible:ring-white"
                 >
                   <MessageCircle
                     className="w-4 h-4 shrink-0"
@@ -203,16 +203,16 @@ export const Hero: React.FC<HeroProps> = ({ onBookNow }) => {
               transition={{ duration: 0.65, delay: 0.28, ease: EASE_OUT_EXPO }}
               className="hidden lg:block lg:col-span-5"
             >
-              <div className="rounded-2xl border border-white/15 bg-[#0D2D58]/85 backdrop-blur-md p-6 space-y-4 shadow-2xl">
+              <div className="rounded-2xl border border-white/15 bg-[#191919]/85 backdrop-blur-md p-6 space-y-4 shadow-2xl">
                 <div className="flex items-center justify-between text-xs text-slate-300">
                   <span className="font-semibold text-white flex items-center gap-1.5">
                     <Sparkles
-                      className="w-3.5 h-3.5 text-[#5AC266]"
+                      className="w-3.5 h-3.5 text-[#FF4B55]"
                       aria-hidden="true"
                     />
                     <span>Popular Refinishing Palette</span>
                   </span>
-                  <span className="font-mono text-[#5AC266]">
+                  <span className="font-mono text-[#FF4B55]">
                     2K High-Solid Clear
                   </span>
                 </div>
@@ -228,7 +228,7 @@ export const Hero: React.FC<HeroProps> = ({ onBookNow }) => {
                         onClick={() => setSelectedSwatch(swatch)}
                         className={`group text-left rounded-xl p-1.5 transition-all cursor-pointer border ${
                           isSelected
-                            ? "bg-white/15 border-[#5AC266] shadow-md"
+                            ? "bg-white/15 border-[#FF4B55] shadow-md"
                             : "bg-white/5 border-transparent hover:bg-white/10 hover:border-white/20"
                         }`}
                       >
@@ -247,14 +247,14 @@ export const Hero: React.FC<HeroProps> = ({ onBookNow }) => {
                 </div>
 
                 {/* Selected Color Preview Strip */}
-                <div className="flex items-center justify-between rounded-lg bg-[#081C38]/70 border border-white/10 px-3 py-2 text-xs">
+                <div className="flex items-center justify-between rounded-lg bg-[#0A0A0A]/70 border border-white/10 px-3 py-2 text-xs">
                   <span className="text-slate-300">
                     Selected:{" "}
                     <strong className="text-white">
                       {selectedSwatch.name}
                     </strong>
                   </span>
-                  <span className="font-mono text-[11px] text-[#5AC266]">
+                  <span className="font-mono text-[11px] text-[#FF4B55]">
                     {selectedSwatch.finish}
                   </span>
                 </div>
@@ -270,7 +270,7 @@ export const Hero: React.FC<HeroProps> = ({ onBookNow }) => {
       </div>
 
       {/* Full-Width 4-Column Workshop Credentials Bar */}
-      <div className="border-t border-white/10 bg-[#0D2D58]">
+      <div className="border-t border-white/10 bg-[#191919]">
         <div className="mx-auto px-4 md:px-24">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 divide-y sm:divide-y-0 sm:divide-x divide-white/10">
             <motion.div
@@ -282,7 +282,7 @@ export const Hero: React.FC<HeroProps> = ({ onBookNow }) => {
               <p className="text-xs font-medium text-slate-300">Managed By</p>
               <p className="mt-1 text-base font-bold text-white flex items-center gap-2">
                 <ShieldCheck
-                  className="w-4 h-4 text-[#5AC266] shrink-0"
+                  className="w-4 h-4 text-[#FF4B55] shrink-0"
                   aria-hidden="true"
                 />
                 <span>{BUSINESS_INFO.companyName}</span>

@@ -30,7 +30,7 @@ export default function App() {
 
   return (
     <MotionConfig reducedMotion="user">
-      <div className="min-h-screen flex flex-col bg-white text-[#0D2D58]">
+      <div className="min-h-screen flex flex-col bg-[#121212] text-slate-100">
         <Navbar onBookClick={scrollToBooking} />
 
         <main className="flex-1">

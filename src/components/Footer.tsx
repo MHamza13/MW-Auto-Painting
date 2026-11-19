@@ -1,14 +1,14 @@
 import React from "react";
-import logo from "../assets/images/logo.png";
+import logo from "../assets/images/logo-transparent.png";
 import { BUSINESS_INFO } from "../data/workshopData";
 
 export const Footer: React.FC = () => {
   return (
-    <footer className="bg-[#081C38] text-slate-300">
+    <footer className="bg-[#0A0A0A] text-slate-300">
       <div className="mx-auto px-4 md:px-24 py-12">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-8 pb-8 border-b border-white/10">
           <div className="flex flex-col sm:flex-row sm:items-center gap-4">
-            <div className="inline-flex bg-white rounded-lg px-3 py-1.5 w-fit">
+            <div className="inline-flex w-fit">
               <img
                 src={logo}
                 alt="MW Auto Painting"

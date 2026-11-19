@@ -82,10 +82,10 @@ const ProjectCard: React.FC<{
       exit={{ opacity: 0, scale: 0.97 }}
       transition={{ duration: 0.32, ease: EASE_OUT_EXPO }}
       whileHover={{ y: -4 }}
-      className="group bg-white rounded-2xl border border-slate-200 hover:border-[#0D2D58]/30 hover:shadow-md transition-shadow overflow-hidden flex flex-col justify-between"
+      className="group bg-[#1A1A1A] rounded-2xl border border-white/10 hover:border-[#D90F1D]/30 hover:shadow-md transition-shadow overflow-hidden flex flex-col justify-between"
     >
       <div>
-        <div className="relative aspect-[4/3] bg-[#0D2D58] overflow-hidden">
+        <div className="relative aspect-[4/3] bg-[#191919] overflow-hidden">
           {!imgError ? (
             <img
               src={
@@ -105,7 +105,7 @@ const ProjectCard: React.FC<{
               className="w-full h-full object-cover object-center transition-transform duration-500 ease-out group-hover:scale-[1.04]"
             />
           ) : (
-            <div className="w-full h-full flex flex-col items-center justify-center p-6 text-white bg-gradient-to-br from-[#0D2D58] to-[#23572A]">
+            <div className="w-full h-full flex flex-col items-center justify-center p-6 text-white bg-gradient-to-br from-[#191919] to-[#B30B17]">
               <Car className="w-9 h-9 mb-2 text-slate-200" aria-hidden="true" />
               <p className="text-sm font-semibold text-center">
                 {project.title}
@@ -118,7 +118,7 @@ const ProjectCard: React.FC<{
             type="button"
             onClick={() => onInspect(project)}
             aria-label={`View full size photo of ${project.title}`}
-            className="absolute top-3 right-3 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#081C38]/85 hover:bg-[#081C38] backdrop-blur-sm text-white text-xs font-semibold transition-opacity opacity-90 sm:opacity-0 sm:group-hover:opacity-100 cursor-pointer focus:opacity-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-white"
+            className="absolute top-3 right-3 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#0A0A0A]/85 hover:bg-[#0A0A0A] backdrop-blur-sm text-white text-xs font-semibold transition-opacity opacity-90 sm:opacity-0 sm:group-hover:opacity-100 cursor-pointer focus:opacity-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-white"
           >
             <ZoomIn className="w-3.5 h-3.5 shrink-0" aria-hidden="true" />
             <span>Inspect</span>
@@ -126,8 +126,8 @@ const ProjectCard: React.FC<{
         </div>
 
         <div className="p-6">
-          <div className="flex flex-wrap items-center gap-2 text-xs text-slate-500">
-            <span className="font-semibold text-[#2D6E35]">
+          <div className="flex flex-wrap items-center gap-2 text-xs text-slate-400">
+            <span className="font-semibold text-[#D90F1D]">
               {project.category}
             </span>
             <span aria-hidden="true">·</span>
@@ -135,32 +135,32 @@ const ProjectCard: React.FC<{
             {project.isUserUploaded && (
               <>
                 <span aria-hidden="true">·</span>
-                <span className="font-semibold text-[#0D2D58]">
+                <span className="font-semibold text-slate-100">
                   Workshop Upload
                 </span>
               </>
             )}
           </div>
 
-          <h3 className="mt-2 text-xl font-bold tracking-tight text-[#0D2D58]">
+          <h3 className="mt-2 text-xl font-bold tracking-tight text-slate-100">
             {project.title}
           </h3>
 
-          <p className="mt-1 text-xs font-mono text-slate-500">
+          <p className="mt-1 text-xs font-mono text-slate-400">
             {project.finishSpec}
           </p>
 
           {/* Interactive Before / After Scope Toggle */}
-          <div className="mt-4 pt-4 border-t border-slate-100">
-            <div className="inline-flex items-center gap-1 p-1 rounded-lg bg-[#F5F7FA] border border-slate-200">
+          <div className="mt-4 pt-4 border-t border-white/10">
+            <div className="inline-flex items-center gap-1 p-1 rounded-lg bg-[#202020] border border-white/10">
               {project.beforeImage && (
                 <button
                   type="button"
                   onClick={() => setViewMode("before")}
                   className={`px-3 py-1.5 rounded-md text-xs font-semibold transition-colors whitespace-nowrap shrink-0 cursor-pointer ${
                     viewMode === "before"
-                      ? "bg-[#2D6E35] text-white shadow-sm"
-                      : "text-slate-600 hover:text-[#0D2D58]"
+                      ? "bg-[#D90F1D] text-white shadow-sm"
+                      : "text-slate-300 hover:text-slate-100"
                   }`}
                 >
                   Before Photo
@@ -172,21 +172,21 @@ const ProjectCard: React.FC<{
                   onClick={() => setViewMode("after")}
                   className={`px-3 py-1.5 rounded-md text-xs font-semibold transition-colors whitespace-nowrap shrink-0 cursor-pointer ${
                     viewMode === "after"
-                      ? "bg-[#0D2D58] text-white shadow-sm"
-                      : "text-slate-600 hover:text-[#0D2D58]"
+                      ? "bg-[#191919] text-white shadow-sm"
+                      : "text-slate-300 hover:text-slate-100"
                   }`}
                 >
                   After Photo
                 </button>
               )}
               {!project.beforeImage && (
-                <span className="px-3 py-1.5 text-xs font-semibold text-slate-600">
+                <span className="px-3 py-1.5 text-xs font-semibold text-slate-300">
                   Workshop Photo
                 </span>
               )}
             </div>
 
-            <p className="mt-3 min-h-[44px] text-sm text-slate-600 leading-relaxed">
+            <p className="mt-3 min-h-[44px] text-sm text-slate-300 leading-relaxed">
               {viewMode === "after" || !project.beforeImage
                 ? project.afterNote
                 : project.beforeNote}
@@ -199,7 +199,7 @@ const ProjectCard: React.FC<{
         <button
           type="button"
           onClick={() => onBookSimilar(project.category)}
-          className="inline-flex items-center gap-2 text-sm font-semibold text-[#0D2D58] hover:text-[#2D6E35] transition-colors cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#2D6E35] rounded"
+          className="inline-flex items-center gap-2 text-sm font-semibold text-slate-100 hover:text-[#D90F1D] transition-colors cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D90F1D] rounded"
         >
           <span>Request similar job</span>
           <ArrowRight
@@ -371,19 +371,19 @@ export const GallerySection: React.FC<GallerySectionProps> = ({
   return (
     <section
       id="gallery"
-      className="py-16 sm:py-24 bg-white border-b border-slate-200"
+      className="py-16 sm:py-24 bg-[#1A1A1A] border-b border-white/10"
     >
       <div className="mx-auto px-4 md:px-24">
         {/* Section Header + Share Photos Action + Filter Bar */}
         <Reveal className="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
           <div className="max-w-2xl">
-            <p className="text-xs sm:text-sm font-semibold text-[#2D6E35] tracking-wide">
+            <p className="text-xs sm:text-sm font-semibold text-[#D90F1D] tracking-wide">
               Gallery &amp; Our Work
             </p>
-            <h2 className="mt-2 text-3xl sm:text-4xl font-bold tracking-tight text-[#0D2D58] text-balance">
+            <h2 className="mt-2 text-3xl sm:text-4xl font-bold tracking-tight text-slate-100 text-balance">
               Workshop Photos &amp; Vehicle Restorations
             </h2>
-            <p className="mt-3 text-base text-slate-600 leading-relaxed">
+            <p className="mt-3 text-base text-slate-300 leading-relaxed">
               Browse real workshop photos, paintwork, and classic restorations,
               or share more photos from your workshop.
             </p>
@@ -395,7 +395,7 @@ export const GallerySection: React.FC<GallerySectionProps> = ({
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               onClick={() => setUploadPanelOpen((prev) => !prev)}
-              className="clearcoat-sheen inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-[#2D6E35] hover:bg-[#23572A] text-white text-xs sm:text-sm font-semibold transition-colors whitespace-nowrap shrink-0 cursor-pointer shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#2D6E35]"
+              className="clearcoat-sheen inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-[#D90F1D] hover:bg-[#B30B17] text-white text-xs sm:text-sm font-semibold transition-colors whitespace-nowrap shrink-0 cursor-pointer shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#D90F1D]"
             >
               <ImagePlus className="w-4 h-4 shrink-0" aria-hidden="true" />
               <span>
@@ -415,7 +415,7 @@ export const GallerySection: React.FC<GallerySectionProps> = ({
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
               transition={{ duration: 0.25, ease: EASE_OUT_EXPO }}
-              className="mt-8 rounded-2xl border border-[#2D6E35]/30 bg-[#F5F7FA] p-6 sm:p-8"
+              className="mt-8 rounded-2xl border border-[#D90F1D]/30 bg-[#202020] p-6 sm:p-8"
             >
               <form
                 onSubmit={handlePublishWorkshopPhotos}
@@ -423,10 +423,10 @@ export const GallerySection: React.FC<GallerySectionProps> = ({
               >
                 <div className="flex items-start justify-between gap-4">
                   <div>
-                    <h3 className="text-lg font-bold text-[#0D2D58]">
+                    <h3 className="text-lg font-bold text-slate-100">
                       Share Your Workshop Images to the Gallery
                     </h3>
-                    <p className="text-xs sm:text-sm text-slate-600 mt-1">
+                    <p className="text-xs sm:text-sm text-slate-300 mt-1">
                       Select one or more photos from your phone or computer to
                       add them straight into the gallery showcase below.
                     </p>
@@ -435,7 +435,7 @@ export const GallerySection: React.FC<GallerySectionProps> = ({
                     type="button"
                     onClick={() => setUploadPanelOpen(false)}
                     aria-label="Close uploader"
-                    className="p-2 rounded-lg text-slate-500 hover:text-[#0D2D58] hover:bg-white transition-colors cursor-pointer"
+                    className="p-2 rounded-lg text-slate-400 hover:text-slate-100 hover:bg-[#1A1A1A] transition-colors cursor-pointer"
                   >
                     <X className="w-4 h-4" />
                   </button>
@@ -464,8 +464,8 @@ export const GallerySection: React.FC<GallerySectionProps> = ({
                   }}
                   className={`rounded-xl border-2 border-dashed p-6 sm:p-8 text-center cursor-pointer transition-colors ${
                     isDraggingFile
-                      ? "border-[#2D6E35] bg-[#2D6E35]/10"
-                      : "border-slate-300 bg-white hover:border-[#0D2D58]"
+                      ? "border-[#D90F1D] bg-[#D90F1D]/10"
+                      : "border-white/20 bg-[#1A1A1A] hover:border-[#D90F1D]"
                   }`}
                 >
                   <input
@@ -477,13 +477,13 @@ export const GallerySection: React.FC<GallerySectionProps> = ({
                     className="hidden"
                   />
                   <Upload
-                    className="w-8 h-8 mx-auto text-[#2D6E35] mb-2"
+                    className="w-8 h-8 mx-auto text-[#D90F1D] mb-2"
                     aria-hidden="true"
                   />
-                  <p className="text-sm font-semibold text-[#0D2D58]">
+                  <p className="text-sm font-semibold text-slate-100">
                     Click to choose workshop photos or drag &amp; drop here
                   </p>
-                  <p className="text-xs text-slate-500 mt-1">
+                  <p className="text-xs text-slate-400 mt-1">
                     Supports JPG, PNG, and WEBP (up to 6 images per upload)
                   </p>
                 </div>
@@ -494,7 +494,7 @@ export const GallerySection: React.FC<GallerySectionProps> = ({
                     {pendingPreviews.map((item, idx) => (
                       <div
                         key={`${item.name}-${idx}`}
-                        className="relative aspect-[4/3] rounded-lg overflow-hidden border border-slate-200 bg-slate-900"
+                        className="relative aspect-[4/3] rounded-lg overflow-hidden border border-white/10 bg-slate-900"
                       >
                         <img
                           src={item.dataUrl}
@@ -509,7 +509,7 @@ export const GallerySection: React.FC<GallerySectionProps> = ({
                             )
                           }
                           aria-label={`Remove ${item.name}`}
-                          className="absolute top-1.5 right-1.5 w-6 h-6 rounded-full bg-[#081C38]/85 text-white flex items-center justify-center hover:bg-red-600 transition-colors cursor-pointer"
+                          className="absolute top-1.5 right-1.5 w-6 h-6 rounded-full bg-[#0A0A0A]/85 text-white flex items-center justify-center hover:bg-red-600 transition-colors cursor-pointer"
                         >
                           <X className="w-3.5 h-3.5" />
                         </button>
@@ -523,7 +523,7 @@ export const GallerySection: React.FC<GallerySectionProps> = ({
                   <div>
                     <label
                       htmlFor="uploadTitle"
-                      className="block text-xs font-semibold text-[#0D2D58] mb-1.5"
+                      className="block text-xs font-semibold text-slate-100 mb-1.5"
                     >
                       Project Title
                     </label>
@@ -533,14 +533,14 @@ export const GallerySection: React.FC<GallerySectionProps> = ({
                       value={uploadTitle}
                       onChange={(e) => setUploadTitle(e.target.value)}
                       placeholder="e.g., Proton Saga Full Respray"
-                      className="w-full rounded-lg border border-slate-300 bg-white px-3.5 py-2 text-sm text-[#0D2D58] focus:outline-none focus:border-[#2D6E35]"
+                      className="w-full rounded-lg border border-white/20 bg-[#1A1A1A] px-3.5 py-2 text-sm text-slate-100 focus:outline-none focus:border-[#D90F1D]"
                     />
                   </div>
 
                   <div>
                     <label
                       htmlFor="uploadVehicle"
-                      className="block text-xs font-semibold text-[#0D2D58] mb-1.5"
+                      className="block text-xs font-semibold text-slate-100 mb-1.5"
                     >
                       Car Model / Year
                     </label>
@@ -550,14 +550,14 @@ export const GallerySection: React.FC<GallerySectionProps> = ({
                       value={uploadVehicle}
                       onChange={(e) => setUploadVehicle(e.target.value)}
                       placeholder="e.g., Perodua Myvi · 2020"
-                      className="w-full rounded-lg border border-slate-300 bg-white px-3.5 py-2 text-sm text-[#0D2D58] focus:outline-none focus:border-[#2D6E35]"
+                      className="w-full rounded-lg border border-white/20 bg-[#1A1A1A] px-3.5 py-2 text-sm text-slate-100 focus:outline-none focus:border-[#D90F1D]"
                     />
                   </div>
 
                   <div>
                     <label
                       htmlFor="uploadCategory"
-                      className="block text-xs font-semibold text-[#0D2D58] mb-1.5"
+                      className="block text-xs font-semibold text-slate-100 mb-1.5"
                     >
                       Service Category
                     </label>
@@ -567,7 +567,7 @@ export const GallerySection: React.FC<GallerySectionProps> = ({
                       onChange={(e) =>
                         setUploadCategory(e.target.value as ServiceId)
                       }
-                      className="w-full rounded-lg border border-slate-300 bg-white px-3.5 py-2 text-sm text-[#0D2D58] focus:outline-none focus:border-[#2D6E35]"
+                      className="w-full rounded-lg border border-white/20 bg-[#1A1A1A] px-3.5 py-2 text-sm text-slate-100 focus:outline-none focus:border-[#D90F1D]"
                     >
                       {SERVICES.map((s) => (
                         <option key={s.id} value={s.id}>
@@ -582,7 +582,7 @@ export const GallerySection: React.FC<GallerySectionProps> = ({
                   <div>
                     <label
                       htmlFor="uploadAfterNote"
-                      className="block text-xs font-semibold text-[#0D2D58] mb-1.5"
+                      className="block text-xs font-semibold text-slate-100 mb-1.5"
                     >
                       Completed Work Description (After Finish)
                     </label>
@@ -592,14 +592,14 @@ export const GallerySection: React.FC<GallerySectionProps> = ({
                       value={uploadAfterNote}
                       onChange={(e) => setUploadAfterNote(e.target.value)}
                       placeholder="e.g., Full metallic clearcoat spray & buff polish"
-                      className="w-full rounded-lg border border-slate-300 bg-white px-3.5 py-2 text-sm text-[#0D2D58] focus:outline-none focus:border-[#2D6E35]"
+                      className="w-full rounded-lg border border-white/20 bg-[#1A1A1A] px-3.5 py-2 text-sm text-slate-100 focus:outline-none focus:border-[#D90F1D]"
                     />
                   </div>
 
                   <div>
                     <label
                       htmlFor="uploadBeforeNote"
-                      className="block text-xs font-semibold text-[#0D2D58] mb-1.5"
+                      className="block text-xs font-semibold text-slate-100 mb-1.5"
                     >
                       Initial Condition (Before Note, Optional)
                     </label>
@@ -609,7 +609,7 @@ export const GallerySection: React.FC<GallerySectionProps> = ({
                       value={uploadBeforeNote}
                       onChange={(e) => setUploadBeforeNote(e.target.value)}
                       placeholder="e.g., Faded bonnet paint and rear door dent"
-                      className="w-full rounded-lg border border-slate-300 bg-white px-3.5 py-2 text-sm text-[#0D2D58] focus:outline-none focus:border-[#2D6E35]"
+                      className="w-full rounded-lg border border-white/20 bg-[#1A1A1A] px-3.5 py-2 text-sm text-slate-100 focus:outline-none focus:border-[#D90F1D]"
                     />
                   </div>
                 </div>
@@ -627,13 +627,13 @@ export const GallerySection: React.FC<GallerySectionProps> = ({
                       setPendingPreviews([]);
                       setUploadPanelOpen(false);
                     }}
-                    className="px-4 py-2 rounded-lg border border-slate-300 bg-white text-xs sm:text-sm font-semibold text-slate-700 hover:border-[#0D2D58] cursor-pointer"
+                    className="px-4 py-2 rounded-lg border border-white/20 bg-[#1A1A1A] text-xs sm:text-sm font-semibold text-slate-300 hover:border-[#D90F1D] cursor-pointer"
                   >
                     Cancel
                   </button>
                   <button
                     type="submit"
-                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-[#0D2D58] hover:bg-[#163E73] text-white text-xs sm:text-sm font-semibold transition-colors cursor-pointer"
+                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-[#191919] hover:bg-[#363636] text-white text-xs sm:text-sm font-semibold transition-colors cursor-pointer"
                   >
                     <ImagePlus
                       className="w-4 h-4 shrink-0"
@@ -652,7 +652,7 @@ export const GallerySection: React.FC<GallerySectionProps> = ({
           <div
             role="tablist"
             aria-label="Filter gallery projects by service"
-            className="flex flex-wrap items-center gap-1.5 p-1.5 rounded-xl bg-[#F5F7FA] border border-slate-200"
+            className="flex flex-wrap items-center gap-1.5 p-1.5 rounded-xl bg-[#202020] border border-white/10"
           >
             {FILTER_OPTIONS.map((option) => {
               const isActive = activeFilter === option.value;
@@ -666,10 +666,10 @@ export const GallerySection: React.FC<GallerySectionProps> = ({
                     setActiveFilter(option.value);
                     setVisibleCount(GALLERY_PAGE_SIZE);
                   }}
-                  className={`px-3.5 py-2 rounded-lg text-xs font-semibold transition-colors whitespace-nowrap shrink-0 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#2D6E35] ${
+                  className={`px-3.5 py-2 rounded-lg text-xs font-semibold transition-colors whitespace-nowrap shrink-0 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D90F1D] ${
                     isActive
-                      ? "bg-[#0D2D58] text-white shadow-sm"
-                      : "text-slate-600 hover:text-[#0D2D58] hover:bg-white"
+                      ? "bg-[#191919] text-white shadow-sm"
+                      : "text-slate-300 hover:text-slate-100 hover:bg-[#1A1A1A]"
                   }`}
                 >
                   {option.label}
@@ -678,7 +678,7 @@ export const GallerySection: React.FC<GallerySectionProps> = ({
             })}
           </div>
 
-          <p className="text-xs font-mono text-slate-500 tabular-nums">
+          <p className="text-xs font-mono text-slate-400 tabular-nums">
             Showing {Math.min(visibleCount, filteredProjects.length)} of{" "}
             {filteredProjects.length}{" "}
             {filteredProjects.length === 1 ? "Photo" : "Photos"}
@@ -714,7 +714,7 @@ export const GallerySection: React.FC<GallerySectionProps> = ({
                   Math.min(count + GALLERY_PAGE_SIZE, filteredProjects.length),
                 )
               }
-              className="px-6 py-3 rounded-xl bg-[#0D2D58] hover:bg-[#163E73] text-white text-sm font-semibold transition-colors cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#2D6E35]"
+              className="px-6 py-3 rounded-xl bg-[#191919] hover:bg-[#363636] text-white text-sm font-semibold transition-colors cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#D90F1D]"
             >
               Show More Photos
             </button>
@@ -730,7 +730,7 @@ export const GallerySection: React.FC<GallerySectionProps> = ({
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={() => setLightboxProject(null)}
-            className="fixed inset-0 z-50 bg-[#081C38]/88 backdrop-blur-sm p-4 sm:p-8 flex items-center justify-center"
+            className="fixed inset-0 z-50 bg-[#0A0A0A]/88 backdrop-blur-sm p-4 sm:p-8 flex items-center justify-center"
           >
             <motion.div
               initial={{ opacity: 0, scale: 0.96, y: 12 }}
@@ -738,14 +738,14 @@ export const GallerySection: React.FC<GallerySectionProps> = ({
               exit={{ opacity: 0, scale: 0.96, y: 12 }}
               transition={{ duration: 0.22, ease: EASE_OUT_EXPO }}
               onClick={(e) => e.stopPropagation()}
-              className="max-w-4xl w-full bg-white rounded-2xl overflow-hidden border border-slate-200 shadow-2xl"
+              className="max-w-4xl w-full bg-[#1A1A1A] rounded-2xl overflow-hidden border border-white/10 shadow-2xl"
             >
-              <div className="flex items-center justify-between gap-4 px-5 py-4 border-b border-slate-200">
+              <div className="flex items-center justify-between gap-4 px-5 py-4 border-b border-white/10">
                 <div>
-                  <p className="text-xs font-semibold text-[#2D6E35]">
+                  <p className="text-xs font-semibold text-[#D90F1D]">
                     {lightboxProject.category} · {lightboxProject.vehicle}
                   </p>
-                  <h3 className="text-lg font-bold text-[#0D2D58]">
+                  <h3 className="text-lg font-bold text-slate-100">
                     {lightboxProject.title}
                   </h3>
                 </div>
@@ -753,12 +753,12 @@ export const GallerySection: React.FC<GallerySectionProps> = ({
                   type="button"
                   onClick={() => setLightboxProject(null)}
                   aria-label="Close photo preview"
-                  className="p-2 rounded-lg text-slate-500 hover:text-[#0D2D58] hover:bg-slate-100 cursor-pointer"
+                  className="p-2 rounded-lg text-slate-400 hover:text-slate-100 hover:bg-[#292929] cursor-pointer"
                 >
                   <X className="w-5 h-5" />
                 </button>
               </div>
-              <div className="bg-[#081C38] max-h-[65vh] flex items-center justify-center overflow-hidden">
+              <div className="bg-[#0A0A0A] max-h-[65vh] flex items-center justify-center overflow-hidden">
                 <img
                   src={lightboxProject.image}
                   alt={lightboxProject.alt}
@@ -766,8 +766,8 @@ export const GallerySection: React.FC<GallerySectionProps> = ({
                   className="w-full max-h-[65vh] object-contain"
                 />
               </div>
-              <div className="p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-[#F5F7FA]">
-                <p className="text-sm text-slate-700">
+              <div className="p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-[#202020]">
+                <p className="text-sm text-slate-300">
                   {lightboxProject.afterNote}
                 </p>
                 <button
@@ -777,7 +777,7 @@ export const GallerySection: React.FC<GallerySectionProps> = ({
                     setLightboxProject(null);
                     onBookSimilar(cat);
                   }}
-                  className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-[#2D6E35] hover:bg-[#23572A] text-white text-xs font-semibold whitespace-nowrap shrink-0 cursor-pointer"
+                  className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-[#D90F1D] hover:bg-[#B30B17] text-white text-xs font-semibold whitespace-nowrap shrink-0 cursor-pointer"
                 >
                   <span>Book Similar Job</span>
                   <ArrowRight className="w-3.5 h-3.5" aria-hidden="true" />
