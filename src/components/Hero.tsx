@@ -106,22 +106,23 @@ export const Hero: React.FC<HeroProps> = ({ onBookNow }) => {
         <div className="relative mx-auto px-4 md:px-24 py-16 sm:py-24 lg:py-28">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
             <div className="lg:col-span-7 max-w-3xl">
-              <motion.p
+              <motion.div
                 initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.45, ease: EASE_OUT_EXPO }}
-                className="text-xs sm:text-sm font-medium tracking-wide text-slate-300 mb-4 flex flex-wrap items-center gap-x-2 gap-y-1"
+                className="mb-4 md:flex gap-3 space-y-1.5"
               >
-                <span className="text-white font-semibold">
+                <p className="text-2xl font-extrabold tracking-tight text-[#e11d48] drop-shadow-[0_0_16px_rgba(225,29,72,0.4)]">
                   {BUSINESS_INFO.brandName}
-                </span>
-                <span aria-hidden="true">·</span>
-                <span className="font-mono tabular-nums">
-                  SSM {BUSINESS_INFO.registrationNo}
-                </span>
-                <span aria-hidden="true">·</span>
-                <span>Kg Bukit Naga, Shah Alam</span>
-              </motion.p>
+                </p>
+                <p className="text-xs sm:text-sm font-medium tracking-wide text-slate-300 flex items-center gap-2">
+                  <span
+                    className="h-1.5 w-1.5 rounded-full bg-[#e11d48]"
+                    aria-hidden="true"
+                  />
+                  <span>Kg Bukit Naga, Section 32 Shah Alam</span>
+                </p>
+              </motion.div>
 
               <motion.h1
                 initial={{ opacity: 0, y: 18 }}
